@@ -5,9 +5,9 @@ import numpy as np
 
 with open("model.pkl", "rb") as f:
     data = pickle.load(f)
-    model = data["model"]
-    encoders = data["encoders"]
 
+model = data["model"]
+encoders = data["encoders"]
 print(type(data))  
 
 st.title("Student Grade Predictor")
