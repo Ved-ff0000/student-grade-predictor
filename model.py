@@ -6,14 +6,16 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LinearRegression
-df = pd.read_csv('C://Users//Vedit//OneDrive//Desktop//archive//student_data.csv')
+df = pd.read_csv("student_data.csv")
 df.describe()
 df.isnull().sum()
 
-le = LabelEncoder()
+encoders = {}
 
-for col in df.select_dtypes(include = ['object']).columns:
+for col in df.select_dtypes(include=['object']).columns:
+    le = LabelEncoder()
     df[col] = le.fit_transform(df[col])
+    encoders[col] = le
 
 df.drop(['address','famsize','Medu','Fedu','Mjob','Fjob','traveltime','famsup','nursery','freetime','goout','Dalc','Walc','reason','guardian','paid','activities','famrel','higher','internet'], axis=1,inplace = True, errors = 'ignore')
 
@@ -41,5 +43,13 @@ plt.xlabel('Actual G3')
 plt.ylabel('Predicted G3')
 plt.title('Actual vs Predicted value')
 plt.show()
-import pickle 
-pickle.dump(model, open("model.pkl", "wb"))
+
+
+
+import pickle
+
+with open("model.pkl", "wb") as f:
+    pickle.dump({
+        "model": model,
+        "encoders": encoders
+    }, f)
