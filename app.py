@@ -3,7 +3,13 @@ import streamlit as st
 import pickle 
 import numpy as np
 
-model = pickle.load(open("model.pkl","rb"))
+import os
+
+model_path = os.path.join(os.path.dirname(__file__), "model.pkl")
+
+with open(model_path, "rb") as f:
+    model = pickle.load(f)
+
 st.title("Student Grade Predictor")
 school = st.selectbox("School (0=GP, 1=MS)", [0,1])
 sex = st.selectbox("Sex (0=F, 1=M)", [0,1])

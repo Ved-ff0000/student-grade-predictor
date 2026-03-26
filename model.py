@@ -42,4 +42,4 @@ plt.ylabel('Predicted G3')
 plt.title('Actual vs Predicted value')
 plt.show()
 import pickle 
-model = pickle.load(open("model.pkl", "rb"))
+pickle.dump(model, open("model.pkl", "wb"))
